@@ -35,9 +35,11 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 15,
-    padding: 10,
+    padding: 8,
     backgroundColor: 'rgba(16,16,16,0.5)',
-    borderRadius: 30
+    borderRadius: 15,
+    marginLeft: 10,
+    overflow: 'hidden'
   }
 })
 

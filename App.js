@@ -5,24 +5,27 @@ import Cities from './screens/Cities'
 import LogIn from './screens/LogIn'
 import SignUp from './screens/SignUp'
 import City from './screens/City';
-import CityCard from './screens/CityCard';
-import { NavigationContainer, useNavigation} from '@react-navigation/native';
+import { NavigationContainer, } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack' 
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const stackNavigator =()=>(
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Screen name='Cities' component={Cities}/>
+    <Stack.Screen name="City" component={City}/>
+  </Stack.Navigator>
+)
  const App = () => {
   return (
-      <NavigationContainer>
+    <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Home" component={Home}/>
-        <Drawer.Screen name="Cities" component={Cities}/>
+        <Drawer.Screen name="Cities" children={stackNavigator}/>
         <Drawer.Screen name="SignUp" component={SignUp}/>
         <Drawer.Screen name="LogIn" component={LogIn}/>
-        <Drawer.Screen name="CityCard" component={CityCard} options={{drawerLabel: () => null,title: null,drawerIcon: () => null}}/>
-        <Drawer.Screen name="City" component={City} options={{drawerLabel: () => null,title: null,drawerIcon: () => null}}/>
       </Drawer.Navigator>
     </NavigationContainer>
     );
