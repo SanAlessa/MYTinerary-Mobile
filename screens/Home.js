@@ -6,6 +6,7 @@ const Home =({ navigation }) =>{
 
   const prueba =()=>{
     ToastAndroid.show('PROBANDO!', ToastAndroid.SHORT)
+    navigation.navigate('Cities')
   }
 
   return (
@@ -17,7 +18,7 @@ const Home =({ navigation }) =>{
         <ImageBackground style={styles.image} source={require('../assets/hero.jpg')}>
           <Text style={styles.textH1}>Find your perfect trip, designed by insiders who know and love their cities.</Text>
           <Pressable style={styles.button} onPress={prueba}>
-            <Text style={styles.cta}>Click Me!</Text>
+            <Text style={styles.cta}>Show Me!</Text>
           </Pressable>
           <Image style={styles.logo} source={require('../assets/logo.png')}/>
         </ImageBackground>

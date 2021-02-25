@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
 import { ImageBackground, StyleSheet, Text, View, Dimensions } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler'
 
-const SignUp =()=>{
+const SignUp =({navigation})=>{
 
   const [user, setUser] = useState({firstname:'', lastname: '', email: '', password: ''})
 
-  console.log(user)
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.image}source={require('../assets/hero.jpg')}>
-        <Text>Please fill the form to Sign Up!</Text>
+      <ImageBackground style={styles.image}source={require('../assets/Form.jpg')}>
+        <Text style={styles.text}>Please fill the form to Sign Up!</Text>
         <View style={styles.form}>
         <View style={styles.viewInput}><TextInput placeholder="Firstname" style={styles.input} onChangeText={(value)=>setUser({...user, firstname: value})}/></View>
         <View style={styles.viewInput}><TextInput placeholder="Lastname" style={styles.input} onChangeText={(value)=>setUser({...user, lastname: value})}/></View>
         <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
-        <View style={styles.viewInput}><TextInput placeholder="Password" secureTextEntry style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
+        <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
         </View>
+        <TouchableOpacity onPress={()=>navigation.navigate("Cities", {user})}>
+          <View style={styles.button}>
+            <Text style={styles.textButton}>Sign Up!</Text>
+          </View>
+        </TouchableOpacity>
       </ImageBackground>
     </View>
   )
@@ -24,18 +28,24 @@ const SignUp =()=>{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+  },
+  text:{
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 10
   },
   form: {
     justifyContent: 'space-evenly',
     width: '90%',
     alignItems: 'center',
-    borderWidth: 1
+    backgroundColor: 'rgba(16,16,16,0.5)',
+    borderRadius:15,
   },
   viewInput: {
-    height: '10.2%',
+    height: '10.7%',
     backgroundColor: 'rgba(0,0,0,0.9)',
-    borderRadius: 20,
+    borderRadius: 12,
   },
   image: {
     justifyContent: 'center',
@@ -45,11 +55,22 @@ const styles = StyleSheet.create({
   },
   input: {
     opacity: 1,
-    backgroundColor: 'white',
-    fontSize: 20,
-    borderRadius: 30,
+    backgroundColor: 'rgba(250,250,250,1)',
+    borderRadius: 10,
     width: 200,
     textAlign: 'center',
+    fontSize: 18,
+    height: 30
+  },
+  button: {
+    backgroundColor: '#2196f3',
+    borderRadius:15,
+    marginTop: 10
+  },
+  textButton: {
+    color: 'white',
+    padding: '3%',
+    fontSize: 18
   }
 })
 
