@@ -1,50 +1,25 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, View, Dimensions} from 'react-native';
-import { slide as Menu } from 'react-burger-menu'
+import Home from './screens/Home'
+import Cities from './screens/Cities'
+import LogIn from './screens/LogIn'
+import SignUp from './screens/SignUp'
+import { NavigationContainer, useNavigation} from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
-export default function App() {
+const Drawer = createDrawerNavigator();
 
-  showSettings (e) {
-    e.preventDefault();
-  }
-
+ const App = () => {
   return (
-    <View style={styles.container}>
-    <View style={{flex: 1}} >
-      <ScrollView>
-        <ImageBackground style={styles.image} source={require('./assets/heroimg.jpg')}>
-        <Menu>
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="about" className="menu-item" href="/about">About</a>
-        <a id="contact" className="menu-item" href="/contact">Contact</a>
-        <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-      </Menu>
-        </ImageBackground>
-        <View>
-          <Text>Aqui va a ir el cta!</Text>
-        </View>
-      </ScrollView>
-    </View>
-  </View>
-  );
+      <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
+        <Drawer.Screen name="Cities" component={Cities}></Drawer.Screen>
+        <Drawer.Screen name="SignUp" component={SignUp}></Drawer.Screen>
+        <Drawer.Screen name="LogIn" component={LogIn}></Drawer.Screen>
+      </Drawer.Navigator>
+    </NavigationContainer>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    resizeMode: 'stretch',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  headerItem:{
-    color: 'white',
-    fontSize: 20,
-    paddingTop: 30
-  }
-});
+export default App
