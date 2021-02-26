@@ -6,7 +6,7 @@ const City =(props)=>{
   const city = props.route.params
 
   useEffect(()=>{
-    fetch('http://192.168.0.6:4000/api//itineraries/'+city._id)
+    fetch('https://alessandro-mytinerary.herokuapp.com/api/itineraries/'+city._id)
     .then(response=> response.json())
     .then(data=> console.log(data.response))
   },[])

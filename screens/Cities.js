@@ -9,7 +9,7 @@ const Cities =({navigation})=>{
   const [cities, setCities] = useState([])
 
   useEffect(()=>{
-    fetch('http://192.168.0.6:4000/api/cities')
+    fetch('https://alessandro-mytinerary.herokuapp.com/api/cities')
     .then(response => response.json())
     .then(data => setCities(data.response))
   },[])
