@@ -1,33 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import Home from './screens/Home'
-import Cities from './screens/Cities'
-import LogIn from './screens/LogIn'
-import SignUp from './screens/SignUp'
-import City from './screens/City';
-import { NavigationContainer, } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack' 
+import Navigation from './Navigation'
+import {applyMiddleware, createStore} from 'redux'
+import {Provider} from 'react-redux'
+import thunk from 'redux-thunk'
+import userReducer from './redux/reducers/userReducers'
+import userActions from './redux/actions/userActions';
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const store = createStore(userReducer, applyMiddleware(thunk))
 
-const stackNavigator =()=>(
-  <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name='Cities' component={Cities}/>
-    <Stack.Screen name="City" component={City}/>
-  </Stack.Navigator>
-)
  const App = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={Home}/>
-        <Drawer.Screen name="Cities" children={stackNavigator}/>
-        <Drawer.Screen name="SignUp" component={SignUp}/>
-        <Drawer.Screen name="LogIn" component={LogIn}/>
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <Navigation />
+    </Provider>    
     );
 }
 

@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import { ImageBackground, StyleSheet, Text, View, Dimensions } from 'react-native'
 import { TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
+import userActions from '../redux/actions/userActions'
 
-const LogIn =({navigation})=>{
+const LogIn =({navigation, loggedUser, logIn})=>{
 
   const [user, setUser] = useState({email: '', password: ''})
+
+  const logUser = async ()=>{
+    await logIn(user)
+    navigation.navigate("Cities", {user})
+  }
 
   return (
     <View style={styles.container}>
@@ -14,7 +21,7 @@ const LogIn =({navigation})=>{
         <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
         <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
         </View>
-        <TouchableOpacity onPress={()=>navigation.navigate("Cities", {user})}>
+        <TouchableOpacity onPress={logUser}>
           <View style={styles.button}>
             <Text style={styles.textButton}>Log In</Text>
           </View>
@@ -72,4 +79,15 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
-export default LogIn
+
+const mapStateToProps =state=>{
+  return {
+    loggedUser: state.loggedUser
+  }
+}
+
+const mapDispatchToProps = {
+  logIn: userActions.logIn
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn)

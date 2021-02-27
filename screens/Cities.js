@@ -1,17 +1,20 @@
 import React,{ useEffect, useState } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { ScrollView, TouchableHighlight } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
 import CityCard from './CityCard'
 
 
-const Cities =({navigation})=>{
+const Cities =({navigation, loggedUser})=>{
 
   const [cities, setCities] = useState([])
 
+  
   useEffect(()=>{
     fetch('https://alessandro-mytinerary.herokuapp.com/api/cities')
     .then(response => response.json())
     .then(data => setCities(data.response))
+    console.log(loggedUser)
   },[])
 
 
@@ -39,4 +42,10 @@ const styles = StyleSheet.create({
   
 })
 
-export default Cities
+const mapStateToProps =state=> {
+  return {
+    loggedUser: state.loggedUser
+  }
+}
+
+export default connect(mapStateToProps)(Cities)
