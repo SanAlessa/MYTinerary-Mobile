@@ -5,7 +5,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 const CityCard =({city, navigation})=>{
   return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={()=>navigation.navigate('City', city)}>
+        <TouchableOpacity onPress={()=>navigation.navigate('City', {city, navigation})}>
             <ImageBackground style={styles.image} imageStyle={{borderRadius: 30}} source={{ uri: city.cityPic}}>
               <View style={styles.card}>
                 <Text style={styles.text}>{city.cityName}</Text>
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   image: {
-    width: 300,
-    height: 100, 
+    width: 350,
+    height: 150, 
   },
   card: {
     flex: 1,
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   }
 })
-
 
 
 export default CityCard

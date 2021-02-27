@@ -25,9 +25,9 @@ const userActions = {
           return response.data
         }
         dispatch({type: 'LOG_USER', payload: response.data})
-        ToastAndroid.show('Welcome! '+ response.data.response.name, ToastAndroid.SHORT)
+        ToastAndroid.show('Welcome! '+ response.data.response.name, ToastAndroid.SHORT, ToastAndroid.TOP)
       }catch(error){
-        ToastAndroid.show('Oops something went wrong, try again later', ToastAndroid.SHORT)
+        ToastAndroid.show('Oops something went wrong, try again later', ToastAndroid.SHORT, ToastAndroid.TOP)
       }
     }
   },
@@ -54,6 +54,7 @@ const userActions = {
   logOut: () => {
     return(dispatch) => {
       dispatch({type: 'LOG_OUT'})
+      ToastAndroid.show('See you later, alligator!', ToastAndroid.TOP, ToastAndroid.SHORT)
     }
   }
 }

@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, Text, View, Dimensions } from 'react-nativ
 import { TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
+import Header from './Header'
 
 const LogIn =({navigation, loggedUser, logIn})=>{
 
@@ -15,17 +16,20 @@ const LogIn =({navigation, loggedUser, logIn})=>{
 
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.image}source={require('../assets/Form.jpg')}>
-        <Text style={styles.text}>Fill the form to Log In!</Text>
-        <View style={styles.form}>
-        <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
-        <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
-        </View>
-        <TouchableOpacity onPress={logUser}>
-          <View style={styles.button}>
-            <Text style={styles.textButton}>Log In</Text>
+      <ImageBackground style={styles.image} source={require('../assets/Form.jpg')}>
+        <Header navigation={navigation} color={'rgb(16,16,16)'}/>
+        <View style={styles.content}>
+          <Text style={styles.text}>Fill the form to Log In!</Text>
+          <View style={styles.form}>
+            <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
           </View>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={logUser}>
+            <View style={styles.button}>
+              <Text style={styles.textButton}>Log In</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   )
@@ -34,6 +38,12 @@ const LogIn =({navigation, loggedUser, logIn})=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -70
   },
   text:{
     color: 'white',
@@ -53,8 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   image: {
-    justifyContent: 'center',
-    alignItems: 'center',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
@@ -76,7 +84,8 @@ const styles = StyleSheet.create({
   textButton: {
     color: 'white',
     padding: '3%',
-    fontSize: 18
+    fontSize: 18,
+    textAlign: 'center'
   }
 })
 
