@@ -8,16 +8,22 @@ import Header from './Header'
 const SignUp =({signUp, navigation})=>{
 
   const [user, setUser] = useState({firstname:'', lastname: '', email: '', password: ''})
-
+  const [error, setError] = useState([])
   const signup=async()=>{
-    await signUp(user)
-    navigation.navigate("Cities", user)
+   const res = await signUp(user)
+   if(!res.success && res.errors){
+     console.log(res)
+     res.errors.map(error=> setError(error.message))
+   }else {
+     navigation.navigate("Cities", user)
+   }
   }
-
+  console.log(error)
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image}source={require('../assets/Form.jpg')}>
         <Header navigation={navigation} color={'rgb(16,16,16)'}/>
+        {error.length > 0 && <Text style={{color: 'red', fontSize: 23, textAlign: 'center'}}>{error}</Text>}
         <View style={styles.content}>
           <Text style={styles.text}>Please fill the form to Sign Up!</Text>
           <View style={styles.form}>

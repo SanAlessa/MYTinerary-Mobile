@@ -12,6 +12,7 @@ const userActions = {
         dispatch({type: 'LOG_USER', payload: response.data})
         ToastAndroid.show('Account created successfully', ToastAndroid.SHORT)
       }catch(error){
+        // console.log(error)
         ToastAndroid.show('Oops something went wrong, try again later', ToastAndroid.SHORT)
       }
     }

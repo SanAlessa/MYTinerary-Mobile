@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Title, Drawer, } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,17 +10,13 @@ import userActions from '../redux/actions/userActions';
 function DrawerContent(props) {
   return (
     <View style={{ flex: 1 }}>
+      <ImageBackground source={require('../assets/plane.jpg')} style={{height: 170, width: 280, justifyContent: 'flex-end'}}>
+        <View style={{ marginLeft: 15, flexDirection: 'column' }}>
+          <Title style={styles.title}>{!props.loggedUser ? 'Hello!' : 'Welcome ' + props.loggedUser.name}</Title>
+        </View>
+      </ImageBackground>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
-          <Drawer.Section>
-            <View style={styles.userInfoSection}>
-              <View style={{ flexDirection: 'row', marginTop: 15 }}>
-                <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                  <Title style={styles.title}>{!props.loggedUser ? 'Hello!' : 'Welcome ' + props.loggedUser.name}</Title>
-                </View>
-              </View>
-            </View>
-          </Drawer.Section>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
@@ -100,12 +96,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   title: {
-    fontSize: 16,
-    marginTop: 3,
+    fontSize: 20,
     fontWeight: 'bold',
-  },
-  drawerSection: {
-    marginTop: 15,
+    color: 'white',
+    marginBottom: 10,
+    marginLeft: 10
   },
   bottomDrawerSection: {
     marginBottom: 15,

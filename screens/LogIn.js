@@ -8,16 +8,20 @@ import Header from './Header'
 const LogIn =({navigation, loggedUser, logIn})=>{
 
   const [user, setUser] = useState({email: '', password: ''})
-
+  const [error, setError] = useState('')
   const logUser = async ()=>{
-    await logIn(user)
-    navigation.navigate("Cities", {user})
+    const res = await logIn(user)
+    if(!res.success){
+      setError(res.response)
+    }
+    // navigation.navigate("Cities", {user})
   }
 
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={require('../assets/Form.jpg')}>
         <Header navigation={navigation} color={'rgb(16,16,16)'}/>
+        {error !== '' && <Text style={{color: 'red', fontSize: 20, textAlign: 'center'}}>{error}</Text>}
         <View style={styles.content}>
           <Text style={styles.text}>Fill the form to Log In!</Text>
           <View style={styles.form}>
