@@ -27,7 +27,7 @@ const City =(props)=>{
       </View>
       <ScrollView>
         <View>
-          {itineraries.map(itinerary=><Itinerary itinerary={itinerary}/>)}
+          {itineraries.map(itinerary=><Itinerary key={itinerary._id} itinerary={itinerary}/>)}
         </View>
       </ScrollView>
     </View>

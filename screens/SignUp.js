@@ -16,7 +16,7 @@ const SignUp =({signUp, navigation})=>{
      res.errors.map(error=> setError(error.message))
    }else {
      setUser('')
-     navigation.navigate("Cities", user)
+     navigation.navigate("Cities")
    }
   }
 
@@ -28,10 +28,10 @@ const SignUp =({signUp, navigation})=>{
         <View style={styles.content}>
           <Text style={styles.text}>Please fill the form to Sign Up!</Text>
           <View style={styles.form}>
-            <View style={styles.viewInput}><TextInput placeholder="Firstname" style={styles.input} onChangeText={(value)=>setUser({...user, firstname: value})}/></View>
-            <View style={styles.viewInput}><TextInput placeholder="Lastname" style={styles.input} onChangeText={(value)=>setUser({...user, lastname: value})}/></View>
-            <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
-            <View style={styles.viewInput}><TextInput placeholder="Password" secureTextEntry style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Firstname" style={styles.input} value={user.firstname} onChangeText={(value)=>setUser({...user, firstname: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Lastname" style={styles.input} value={user.lastname} onChangeText={(value)=>setUser({...user, lastname: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} value={user.email} onChangeText={(value)=>setUser({...user, email: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Password" secureTextEntry value={user.password} style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
           </View>
           <TouchableOpacity onPress={signup}>
             <View style={styles.button}>
