@@ -1,5 +1,6 @@
 import { ToastAndroid } from "react-native"
 import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const userActions = {
   signUp: (newUser)=>{
@@ -10,10 +11,10 @@ const userActions = {
           return response.data
         }
         dispatch({type: 'LOG_USER', payload: response.data})
-        ToastAndroid.show('Account created successfully', ToastAndroid.SHORT)
+        ToastAndroid.showWithGravity('Account created successfully', ToastAndroid.SHORT, ToastAndroid.TOP)
       }catch(error){
         // console.log(error)
-        ToastAndroid.show('Oops something went wrong, try again later', ToastAndroid.SHORT)
+        ToastAndroid.showWithGravity('Oops something went wrong, try again later', ToastAndroid.SHORT, ToastAndroid.TOP)
       }
     }
   },
@@ -26,9 +27,9 @@ const userActions = {
           return response.data
         }
         dispatch({type: 'LOG_USER', payload: response.data})
-        ToastAndroid.show('Welcome! '+ response.data.response.name, ToastAndroid.SHORT, ToastAndroid.TOP)
+        ToastAndroid.showWithGravity('Welcome! '+ response.data.response.name, ToastAndroid.SHORT, ToastAndroid.TOP)
       }catch(error){
-        ToastAndroid.show('Oops something went wrong, try again later', ToastAndroid.SHORT, ToastAndroid.TOP)
+        ToastAndroid.showWithGravity('Oops something went wrong, try again later', ToastAndroid.SHORT, ToastAndroid.TOP)
       }
     }
   },
@@ -36,7 +37,7 @@ const userActions = {
   logFromLS: (token) => {
     return async (dispatch) => {
       try {
-        const response = await axios.post('http://localhost:4000/api/login/ls', {token}, { // Se agrega el token, porque no se puede poner un .post sin cuerpo (donde esta el token)!
+        const response = await axios.post('https://alessandro-mytinerary.herokuapp.com/api/login/ls', {token}, { // Se agrega el token, porque no se puede poner un .post sin cuerpo (donde esta el token)!
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -45,7 +46,7 @@ const userActions = {
       }catch(error){
         if(err.response.status === 401) {
           toast.error("You are not allowed to access this page")
-          localStorage.clear()
+          AsyncStorage.clear()
           return true
         }
       }
@@ -55,7 +56,7 @@ const userActions = {
   logOut: () => {
     return(dispatch) => {
       dispatch({type: 'LOG_OUT'})
-      ToastAndroid.show('See you later, alligator!', ToastAndroid.TOP, ToastAndroid.SHORT)
+      ToastAndroid.showWithGravity('See you later, alligator!', ToastAndroid.SHORT, ToastAndroid.TOP)
     }
   }
 }

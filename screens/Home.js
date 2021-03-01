@@ -1,6 +1,5 @@
 import React from 'react';
-import { ImageBackground, Image, StyleSheet, Text, View, Dimensions,
-   SafeAreaView, Button, ToastAndroid, Pressable, TouchableOpacity } from 'react-native';
+import { ImageBackground, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import Header from './Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ImageBackground, StyleSheet, Text, View, Dimensions } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
@@ -9,16 +9,17 @@ const SignUp =({signUp, navigation})=>{
 
   const [user, setUser] = useState({firstname:'', lastname: '', email: '', password: ''})
   const [error, setError] = useState([])
+
   const signup=async()=>{
    const res = await signUp(user)
-   if(!res.success && res.errors){
-     console.log(res)
+   if( res && !res.success && res.errors){
      res.errors.map(error=> setError(error.message))
    }else {
+     setUser('')
      navigation.navigate("Cities", user)
    }
   }
-  console.log(error)
+
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image}source={require('../assets/Form.jpg')}>
@@ -30,13 +31,16 @@ const SignUp =({signUp, navigation})=>{
             <View style={styles.viewInput}><TextInput placeholder="Firstname" style={styles.input} onChangeText={(value)=>setUser({...user, firstname: value})}/></View>
             <View style={styles.viewInput}><TextInput placeholder="Lastname" style={styles.input} onChangeText={(value)=>setUser({...user, lastname: value})}/></View>
             <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
-            <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Password" secureTextEntry style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
           </View>
           <TouchableOpacity onPress={signup}>
             <View style={styles.button}>
               <Text style={styles.textButton}>Sign Up!</Text>
             </View>
           </TouchableOpacity>
+          <Pressable style={styles.button} onPress={()=> navigation.navigate('LogIn')}>
+            <Text style={styles.textButton}>Already have an account? Log In!</Text>
+          </Pressable>
         </View>
       </ImageBackground>
     </View>

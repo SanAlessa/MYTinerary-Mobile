@@ -20,7 +20,7 @@ const Itinerary =({itinerary})=>{
           return <Icon size={25} color={'green'} name="cash"/>})}
         </View>
         {itinerary.activities.map(activity=> 
-        <ImageBackground style={styles.activityImage} imageStyle={{borderRadius: 20}} source={{uri: activity.image}}>
+        <ImageBackground style={styles.activityImage} key={activity.title} imageStyle={{borderRadius: 20}} source={{uri: activity.image}}>
           <Text style={styles.activityTitle}>{activity.title}</Text>
         </ImageBackground>)}
 

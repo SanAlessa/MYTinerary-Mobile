@@ -21,17 +21,20 @@ const stackNavigator =()=>(
     <Stack.Screen name="City" component={City}/>
   </Stack.Navigator>
 )
+ 
 
-const loginLs=async()=>{
-  const token = await AsyncStorage.getItem('token')
-  console.log(token)
-}
-
-const Navigation =()=>{
-
+const Navigation =({logFromLS})=>{
+  
   useEffect(() => {
-   loginLs
+    loginLs()
   }, [])
+
+  const loginLs=async()=>{
+    const token = await AsyncStorage.getItem('token')
+    if(token){
+      logFromLS(token)
+    }
+  }
   
   return (
     <NavigationContainer>
@@ -46,7 +49,7 @@ const Navigation =()=>{
 }
 
 const mapDispatchToProps={
-  logOut: userActions.logOut
+  logFromLS: userActions.logFromLS
 }
 
 

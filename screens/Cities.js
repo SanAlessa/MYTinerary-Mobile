@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React,{ useEffect, useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -6,7 +7,7 @@ import CityCard from './CityCard'
 import Header from './Header'
 
 
-const Cities =({navigation})=>{
+const Cities =(props)=>{
 
   const [cities, setCities] = useState([])
 
@@ -19,11 +20,11 @@ const Cities =({navigation})=>{
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} color={'rgb(20,20,20)'}/>
+      <Header navigation={props.navigation} color={'rgb(20,20,20)'}/>
       <ScrollView>
         <Text style={{fontSize: 20, textAlign: 'center',  marginBottom: -50}}>Cities</Text>
         <View style={styles.card}>
-          {cities.map(city=> <CityCard key={city._id} city={city} navigation={navigation}/>)}
+          {cities.map(city=> <CityCard key={city._id} city={city} navigation={props.navigation}/>)}
         </View>
       </ScrollView>
       </View>

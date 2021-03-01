@@ -4,8 +4,8 @@ const initState = {
   loggedUser: null
 }
 
-const setLS = async ()=>{
-  await AsyncStorage.setItem('token')
+const setLS = (action)=>{
+  AsyncStorage.setItem('token', action.payload.response.token)
 } 
 
 const clearLS = async()=>{
@@ -14,13 +14,13 @@ const clearLS = async()=>{
 const userReducer = (state = initState, action) => {
   switch(action.type){
     case 'LOG_USER':
-      setLS
+      setLS(action)
      return {
        ...state,
        loggedUser: action.payload.response
      }
     case 'LOG_OUT':
-      clearLS
+      clearLS()
       return {
       ...state,
       loggedUser: null

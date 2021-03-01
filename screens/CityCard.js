@@ -1,11 +1,23 @@
 import React from 'react'
-import { StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, ToastAndroid } from 'react-native'
+import {TouchableOpacity } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
 
-const CityCard =({city, navigation})=>{
+const CityCard =({city, navigation, loggedUser})=>{
+
+  const check =()=>{
+    if(loggedUser){
+      navigation.navigate('City', {city, navigation})
+    }else{
+      ToastAndroid.showWithGravity('You must be logged!', ToastAndroid.SHORT, ToastAndroid.TOP)
+      navigation.navigate('LogIn')
+    }
+  }
+
   return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={()=>navigation.navigate('City', {city, navigation})}>
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('City', {city, navigation})}> */}
+        <TouchableOpacity onPress={check}>
             <ImageBackground style={styles.image} imageStyle={{borderRadius: 30}} source={{ uri: city.cityPic}}>
               <View style={styles.card}>
                 <Text style={styles.text}>{city.cityName}</Text>
@@ -43,5 +55,10 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps=state=>{
+  return {
+    loggedUser: state.loggedUser
+  }
+}
 
-export default CityCard
+export default connect(mapStateToProps)(CityCard)

@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
-import { ImageBackground, StyleSheet, Text, View, Dimensions } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native'
 import { TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 import Header from './Header'
 
-const LogIn =({navigation, loggedUser, logIn})=>{
+const LogIn =({navigation, logIn})=>{
 
   const [user, setUser] = useState({email: '', password: ''})
   const [error, setError] = useState('')
   const logUser = async ()=>{
     const res = await logIn(user)
-    if(!res.success){
+    if(res && !res.success){
       setError(res.response)
+    }else{
+      setUser('')
+      navigation.navigate("Cities")
     }
-    // navigation.navigate("Cities", {user})
   }
 
   return (
@@ -25,14 +27,17 @@ const LogIn =({navigation, loggedUser, logIn})=>{
         <View style={styles.content}>
           <Text style={styles.text}>Fill the form to Log In!</Text>
           <View style={styles.form}>
-            <View style={styles.viewInput}><TextInput placeholder="Email" style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
-            <View style={styles.viewInput}><TextInput placeholder="Password" style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Email" value={user.email} style={styles.input} onChangeText={(value)=>setUser({...user, email: value})}/></View>
+            <View style={styles.viewInput}><TextInput placeholder="Password" secureTextEntry value={user.password} style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/></View>
           </View>
           <TouchableOpacity onPress={logUser}>
             <View style={styles.button}>
               <Text style={styles.textButton}>Log In</Text>
             </View>
           </TouchableOpacity>
+          <Pressable style={styles.button} onPress={()=> navigation.navigate('SignUp')}>
+            <Text style={styles.textButton}>Don't have an account? Sign Up!</Text>
+          </Pressable>
         </View>
       </ImageBackground>
     </View>
