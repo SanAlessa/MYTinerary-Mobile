@@ -5,9 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Itinerary =({itinerary})=>{
-  console.log(itinerary)
-  console.log(itinerary.userPic)
-  return (
+    return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>{itinerary.title}</Text>
@@ -17,13 +15,12 @@ const Itinerary =({itinerary})=>{
           <Icon size={25} color={'red'} name="heart-outline"/><Text style={{marginLeft: 3,marginRight: 10, fontSize: 18}}>{itinerary.likes.length}</Text>
           <Icon size={25} color={'blue'} name="clock-outline"/><Text style={{marginLeft: 3,marginRight: 10, fontSize:18}}>{itinerary.hours} hs</Text>
           {[...Array(itinerary.price)].map((m, i) => {
-          return <Icon size={25} color={'green'} name="cash"/>})}
+          return <Icon key={i} size={25} color={'green'} name="cash"/>})}
         </View>
         {itinerary.activities.map(activity=> 
         <ImageBackground style={styles.activityImage} key={activity.title} imageStyle={{borderRadius: 20}} source={{uri: activity.image}}>
           <Text style={styles.activityTitle}>{activity.title}</Text>
         </ImageBackground>)}
-
       </View>
     </View>
   )

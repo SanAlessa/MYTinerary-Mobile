@@ -16,7 +16,6 @@ const CityCard =({city, navigation, loggedUser})=>{
 
   return (
       <View style={styles.container}>
-        {/* <TouchableOpacity onPress={()=>navigation.navigate('City', {city, navigation})}> */}
         <TouchableOpacity onPress={check}>
             <ImageBackground style={styles.image} imageStyle={{borderRadius: 30}} source={{ uri: city.cityPic}}>
               <View style={styles.card}>
